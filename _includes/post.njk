@@ -1,0 +1,27 @@
+{% set pub = publishedAt | date("dd MMM yyyy") %}
+{% set upd = updatedAt | date("dd MMM yyyy") %}
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf‑8">
+  <title>{{ title }}</title>
+</head>
+<body>
+  <article>
+    <h1>{{ title }}</h1>
+    <p class="meta">
+      Pubblicato: {{ pub }}
+      {% if upd and upd != pub %}
+        — Aggiornato: {{ upd }}
+      {% endif %}
+    </p>
+
+    {{ content | safe }}
+
+    {% if updateReason %}
+      <aside class="update-reason">{{ updateReason }}</aside>
+    {% endif %}
+  </article>
+</body>
+</html>
