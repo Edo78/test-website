@@ -1,5 +1,6 @@
 ---
 published: true
+updated: true
 category: Categoria 1
 title: 'Hello, World!'
 ---
