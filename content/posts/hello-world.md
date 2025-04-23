@@ -1,8 +1,9 @@
 ---
+title: Hello, World!
+category: farneticazioni
 published: true
-updated: true
-category: Categoria 1
-title: 'Hello, World!'
+updated: false
+pinned: false
 ---
 
 ## Hello World!
