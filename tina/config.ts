@@ -1,9 +1,9 @@
 import { defineConfig } from "tinacms";
 
 export default defineConfig({
-  clientId: process.env.TINA_PUBLIC_CLIENT_ID || "",
-  token: process.env.TINA_TOKEN || "",
-  branch: "master",
+  // clientId: process.env.TINA_PUBLIC_CLIENT_ID || "",
+  // token: process.env.TINA_TOKEN || "",
+  // branch: "master",
   build: {
     outputFolder: "admin",   // cartella generata per l’UI di Tina
     publicFolder: "public",  // cartella degli asset pubblici
