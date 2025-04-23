@@ -2,7 +2,7 @@
 title: Hello, World!
 category: farneticazioni
 published: true
-updated: true
+updated: false
 pinned: false
 ---
 
