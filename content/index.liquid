@@ -1,0 +1,61 @@
+---
+layout: layouts/base.liquid
+title: "Home"
+pagination:
+  data: collections.posts
+  size: 2
+  alias: posts
+permalink: "{% if pagination.pageNumber > 0 %}/page/{{ pagination.pageNumber | plus: 1 }}/{% endif %}index.html"
+---
+
+{% comment %}
+  • "pinned" è calcolato solo sulla prima pagina.
+  • Gli altri post sono già paginati in `posts`.
+{% endcomment %}
+
+{% if pagination.pageNumber == 0 %}
+  {% assign pinned = collections.posts
+        | where: "data.pinned", true
+        | sort: "data.publishedAt"
+        | reverse
+        | first %}
+  {% if pinned %}
+    <section class="featured">
+      <h2>In evidenza</h2>
+      <article class="card pinned">
+        <h3><a href="{{ pinned.url }}">{{ pinned.data.title }}</a></h3>
+        {% if pinned.data.cover %}
+          <img src="{{ pinned.data.cover }}" alt="">
+        {% endif %}
+        <p>{{ pinned.templateContent | truncate: 200 }}</p>
+      </article>
+    </section>
+  {% endif %}
+{% endif %}
+
+<section class="recent">
+  <h2>Articoli recenti</h2>
+
+  <div class="cards">
+    {% for post in posts %}
+      {% if post != pinned %}
+        <article class="card">
+          <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+          {% if post.data.cover %}
+            <img src="{{ post.data.cover }}" alt="">
+          {% endif %}
+          <p>{{ post.templateContent | truncate: 120 }}</p>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<nav class="pager">
+  {% if pagination.href.previous %}
+    <a href="{{ pagination.href.previous }}">&laquo; Articoli più recenti</a>
+  {% endif %}
+  {% if pagination.href.next %}
+    <a href="{{ pagination.href.next }}">Articoli meno recenti &raquo;</a>
+  {% endif %}
+</nav>

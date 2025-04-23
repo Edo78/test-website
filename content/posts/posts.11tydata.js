@@ -15,9 +15,12 @@ function gitCreated(path) {
 }
 
 module.exports = {
-  layout: "post.njk",
-
   eleventyComputed: {
+    layout: (data) =>
+      data.category === "Narrativa"
+        ? "layouts/base.liquid"        // i capitoli JS useranno questo
+        : "layouts/post.liquid",       // standard post    
+
     /* data “fissa” di pubblicazione */
     publishedAt: data =>
       data.published

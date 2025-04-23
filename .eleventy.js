@@ -16,6 +16,11 @@ module.exports = function (config) {
     // admin pass‑through
     config.addPassthroughCopy("admin");
   
+    // Collezione categorie (per header e pagine dedicate)
+    config.addCollection("category", (api) =>
+        api.getFilteredByGlob("content/categories/*.md")
+    );
+
     // collezione ordinata: pinned più recente al primo posto, poi tutti gli altri per data
     config.addCollection("posts", (api) => {
       const published = api

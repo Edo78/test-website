@@ -1,0 +1,13 @@
+<header class="site-header">
+  <nav class="nav">
+    <a href="/">Home</a>
+
+    {% if collections.category %}
+      {% for cat in collections.category %}
+        <a href="/{{ cat.page.fileSlug }}/">{{ cat.data.title }}</a>
+      {% endfor %}
+    {% endif %}
+
+    <a href="/pages/about-me/">About Me</a>
+  </nav>
+</header>

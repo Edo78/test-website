@@ -1,0 +1,66 @@
+backend:
+  name: github
+  repo: Edo78/test-website
+  branch: master
+local_backend: true        # <- chiave che attiva il proxy
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  # ───────── Settings ─────────
+  - name: settings
+    label: Site Settings
+    files:
+      - file: content/settings.md
+        label: General
+        name: general
+        fields:
+          - { name: postsPerPage, label: Posts per page, widget: number, value_type: int, min: 1, default: 6 }
+
+  # ───────── Categories ─────────
+  - name: category
+    label: Categories
+    folder: content/categories
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown, required: true }
+      - name: permalink
+        widget: hidden
+        default: false
+        required: true
+
+  # ───────── Pages ──────────────
+  - name: page
+    label: Pages
+    folder: content/pages
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title }
+      - { name: body,  label: Body, widget: markdown }
+
+  # ───────── Posts ──────────────
+  - name: post
+    label: Posts
+    folder: content/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title }
+      - name: category
+        label: Category
+        widget: relation
+        collection: category
+        search_fields: [title]
+        value_field: title
+        display_fields: [title]
+        required: true
+      - { name: published, label: Published, widget: boolean, default: false }
+      - { name: updated,   label: Updated,   widget: boolean, default: false }
+      - { name: updateReason, label: Update Reason, required: false }
+      - { name: pinned, label: Pinned, widget: boolean, default: false }
+      - { name: cover, label: Cover Image, widget: image, required: false }
+      - { name: body, label: Body, widget: markdown }

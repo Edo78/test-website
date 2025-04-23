@@ -1,0 +1,39 @@
+---
+layout: layouts/base.liquid
+pagination:
+  data: collections.category
+  size: 1
+  alias: cat
+permalink: "/{{ cat.page.fileSlug }}/index.html"
+---
+
+<h1>{{ cat.data.title }}</h1>
+
+<div class="cat-description">
+  {{ cat.templateContent }}
+</div>
+
+{% assign posts_cat = collections.posts
+      | where: "data.category", cat.data.title %}
+
+{% assign pinned = posts_cat
+      | where: "data.pinned", true
+      | sort: "data.publishedAt"
+      | reverse
+      | first %}
+
+{% if pinned %}
+  <article class="pinned">
+    <h2><a href="{{ pinned.url }}">{{ pinned.data.title }}</a></h2>
+    <p>{{ pinned.templateContent | truncate: 200 }}</p>
+  </article>
+{% endif %}
+
+<h2>Articoli</h2>
+<ul>
+  {% for post in posts_cat %}
+    {% if post != pinned %}
+      <li><a href="{{ post.url }}">{{ post.data.title }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
